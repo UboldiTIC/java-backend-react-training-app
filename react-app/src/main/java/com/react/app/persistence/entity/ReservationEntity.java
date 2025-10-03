@@ -13,8 +13,8 @@ public class ReservationEntity {
     @Column(name = "id_reservation", nullable = false)
     private Integer idReservation;
 
-    @Column(name = "id_user", nullable = false, length = 30)
-    private String idUser;
+    //@Column(name = "id_user", nullable = false, length = 30)
+    //private String idUser;
 
     @Column(nullable = false, columnDefinition = "DATETIME")
     private LocalDateTime date;
@@ -30,5 +30,13 @@ public class ReservationEntity {
 
     @Column(length = 250)
     private String note;
+
+    @OneToOne
+    @JoinColumn(name = "id_user", referencedColumnName = "id_user", insertable = false, updatable = false)
+    private UserEntity user;
+
+    @OneToOne
+    @JoinColumn(name = "id_device", referencedColumnName = "id_device", insertable = false, updatable = false)
+    private DeviceEntity device;
 
 }
