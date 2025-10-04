@@ -5,6 +5,7 @@ import com.react.app.service.DeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,8 +21,15 @@ public class DeviceController {
         this.deviceService = deviceService;
     }
 
+    //Traer toda la lista de dispositivos - viene de DeviceService:
     @GetMapping
     public ResponseEntity<List<DeviceEntity>> getAll() {
         return ResponseEntity.ok(this.deviceService.getAll());
+    }
+
+    //Traer un dispositivo por id - viene de DeviceService:
+    @GetMapping("/{idDevice}")
+    public ResponseEntity<DeviceEntity> get(@PathVariable int idDevice) {
+        return ResponseEntity.ok(this.deviceService.get(idDevice));
     }
 }
