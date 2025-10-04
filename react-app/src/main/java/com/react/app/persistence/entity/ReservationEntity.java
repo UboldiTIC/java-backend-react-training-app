@@ -31,9 +31,12 @@ public class ReservationEntity {
     @Column(length = 250)
     private String note;
 
+    /* Ver si es necesario agregarlos como clave primaria compuesta antes de crear las relaciones. */
+
     @OneToOne
     @JoinColumn(name = "id_user", referencedColumnName = "id_user", insertable = false, updatable = false)
     private UserEntity user;
+
 
     @OneToOne
     @JoinColumn(name = "id_device", referencedColumnName = "id_device", insertable = false, updatable = false)
