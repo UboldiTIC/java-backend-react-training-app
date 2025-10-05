@@ -21,4 +21,5 @@ public class DeviceEntity {
 
     @Column(name= "status", nullable = false, columnDefinition = "TINYINT")
     private Boolean inUse;
+
 }

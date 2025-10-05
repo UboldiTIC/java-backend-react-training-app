@@ -26,4 +26,9 @@ public class DeviceService {
     public DeviceEntity get(int idDevice) {
         return this.deviceRepository.findById(idDevice).orElse(null);
     }
+
+    //Guardar un nuevo dispositivo:
+    public DeviceEntity save(DeviceEntity device) {
+        return this.deviceRepository.save(device);
+    }
 }
