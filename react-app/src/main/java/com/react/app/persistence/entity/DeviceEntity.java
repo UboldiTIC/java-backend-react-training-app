@@ -2,8 +2,8 @@ package com.react.app.persistence.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "device")

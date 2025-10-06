@@ -33,6 +33,29 @@ public class DeviceController {
     //Guardar o crear un nuevo device:
     @PostMapping
     public ResponseEntity<DeviceEntity> add(@RequestBody DeviceEntity device) {
-        return ResponseEntity.ok(this.deviceService.save(device));
+        if (device.getIdDevice() == null || !this.deviceService.exists(device.getIdDevice())) {
+            return ResponseEntity.ok(this.deviceService.save(device));
+        }
+
+        return ResponseEntity.badRequest().build();
+    }
+
+    @PutMapping
+    public ResponseEntity<DeviceEntity> update(@RequestBody DeviceEntity device) {
+        if (device.getIdDevice() != null && this.deviceService.exists(device.getIdDevice())) {
+            return ResponseEntity.ok(this.deviceService.save(device));
+        }
+
+        return ResponseEntity.badRequest().build();
+    }
+
+    @DeleteMapping("/{idDevice}")
+    public ResponseEntity<Void> delete(@PathVariable int idDevice) {
+        if (this.deviceService.exists(idDevice)) {
+            this.deviceService.delete(idDevice);
+            return ResponseEntity.ok().build();
+        }
+
+        return ResponseEntity.badRequest().build();
     }
 }

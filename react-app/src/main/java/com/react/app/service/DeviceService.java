@@ -31,4 +31,14 @@ public class DeviceService {
     public DeviceEntity save(DeviceEntity device) {
         return this.deviceRepository.save(device);
     }
+
+    //Borrar un dispositivo
+    public void delete(int idDevice) {
+        this.deviceRepository.deleteById(idDevice);
+    }
+
+    //Actualizar un dispositivo
+    public boolean exists(int idDevice) {
+        return this.deviceRepository.existsById(idDevice);
+    }
 }
