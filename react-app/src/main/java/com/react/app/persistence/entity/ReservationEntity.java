@@ -1,20 +1,24 @@
 package com.react.app.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Entity
 @Table(name = "reservation")
+@Getter
+@Setter
+@NoArgsConstructor
 public class ReservationEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_reservation", nullable = false)
     private Integer idReservation;
-
-    //@Column(name = "id_user", nullable = false, length = 30)
-    //private String idUser;
 
     @Column(nullable = false, columnDefinition = "DATETIME")
     private LocalDateTime date;
@@ -33,12 +37,13 @@ public class ReservationEntity {
 
     /* Ver si es necesario agregarlos como clave primaria compuesta antes de crear las relaciones. */
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_user", referencedColumnName = "id_user", insertable = false, updatable = false)
+    @JsonIgnore
     private UserEntity user;
 
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_device", referencedColumnName = "id_device", insertable = false, updatable = false)
     private DeviceEntity device;
 
