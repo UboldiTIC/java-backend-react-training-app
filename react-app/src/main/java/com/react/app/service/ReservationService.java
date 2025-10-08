@@ -19,4 +19,8 @@ public class ReservationService {
     public List<ReservationEntity> getAll() {
         return this.reservationRepository.findAll();
     }
+
+    public ReservationEntity getByTeacher(String teacher) {
+        return this.reservationRepository.findAllByTeacherIgnoreCase(teacher);
+    }
 }

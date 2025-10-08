@@ -30,6 +30,12 @@ public class DeviceController {
         return ResponseEntity.ok(this.deviceService.get(idDevice));
     }
 
+    //Traer un dispositivo por estado disponible - Con Query Methods:
+    @GetMapping("status")
+    public ResponseEntity<List<DeviceEntity>> getInUse() {
+        return ResponseEntity.ok(this.deviceService.getInUse());
+    }
+
     //Guardar o crear un nuevo device:
     @PostMapping
     public ResponseEntity<DeviceEntity> add(@RequestBody DeviceEntity device) {

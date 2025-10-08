@@ -27,6 +27,14 @@ public class DeviceService {
         return this.deviceRepository.findById(idDevice).orElse(null);
     }
 
+
+
+    //Traer con Query Methods:
+    public List<DeviceEntity> getInUse() {
+        return this.deviceRepository.findAllByInUseTrue();
+    }
+
+
     //Guardar un nuevo dispositivo:
     public DeviceEntity save(DeviceEntity device) {
         return this.deviceRepository.save(device);
