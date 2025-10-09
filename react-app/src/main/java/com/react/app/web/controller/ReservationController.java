@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -27,7 +29,18 @@ public class ReservationController {
     }
 
     @GetMapping("/teacher/{teacher}")
-    public ResponseEntity<ReservationEntity> getByTeacher(@PathVariable String teacher) {
+    public ResponseEntity<List<ReservationEntity>> getByTeacher(@PathVariable String teacher) {
         return ResponseEntity.ok(this.reservationService.getByTeacher(teacher));
     }
+
+    @GetMapping("/date/{date}")
+    public ReservationEntity getByDate(@PathVariable LocalDate date) {
+        return this.reservationService.getByDate(date);
+    }
+
+    @GetMapping("/today")
+    public ResponseEntity<List<ReservationEntity>> getTodayReservations() {
+        return ResponseEntity.ok(this.reservationService.getTodayReservations());
+    }
+
 }

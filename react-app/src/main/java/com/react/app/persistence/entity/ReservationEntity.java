@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -37,14 +38,13 @@ public class ReservationEntity {
 
     /* Ver si es necesario agregarlos como clave primaria compuesta antes de crear las relaciones. */
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_user", referencedColumnName = "id_user", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_user", referencedColumnName = "id_user")
     @JsonIgnore
     private UserEntity user;
 
-
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_device", referencedColumnName = "id_device", insertable = false, updatable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_device", referencedColumnName = "id_device", nullable = false)
+    @JsonIgnore
     private DeviceEntity device;
-
 }
