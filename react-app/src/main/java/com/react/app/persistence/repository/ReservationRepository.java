@@ -6,11 +6,14 @@ import org.springframework.data.repository.ListCrudRepository;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface ReservationRepository extends ListCrudRepository<ReservationEntity, Integer> {
 
     List<ReservationEntity> findAllByTeacherIgnoreCase(String teacher);
-    ReservationEntity findAllByDate(LocalDateTime date);
+    /*ReservationEntity findAllByDate(LocalDateTime date);*/
+    /*Optional<ReservationEntity> findAllByDate(LocalDateTime date);*/
+    List<ReservationEntity> findAllByDate(LocalDateTime date);
     List<ReservationEntity> findAllByDateAfter(LocalDateTime date);
 
 }

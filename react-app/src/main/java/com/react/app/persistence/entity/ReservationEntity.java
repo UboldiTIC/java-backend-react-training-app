@@ -1,6 +1,7 @@
 package com.react.app.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,8 +44,10 @@ public class ReservationEntity {
     @JsonIgnore
     private UserEntity user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    /* @ManyToOne(fetch = FetchType.LAZY) */
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_device", referencedColumnName = "id_device", nullable = false)
-    @JsonIgnore
+    /*Ver recursión infinita - se quitó @JsonIgnore - ver DTO*/
+    @JsonIgnoreProperties({"reservations"})
     private DeviceEntity device;
 }
