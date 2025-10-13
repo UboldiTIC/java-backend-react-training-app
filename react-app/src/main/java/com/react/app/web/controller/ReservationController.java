@@ -1,6 +1,7 @@
 package com.react.app.web.controller;
 
 import com.react.app.persistence.entity.ReservationEntity;
+import com.react.app.persistence.projection.ReservationSummary;
 import com.react.app.service.ReservationService;
 import org.springframework.data.domain.Page;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +60,11 @@ public class ReservationController {
     @GetMapping("/user/{id}")
     public ResponseEntity<List<ReservationEntity>> getUserReservations(@PathVariable String id) {
         return ResponseEntity.ok(this.reservationService.getUserReservations(id));
+    }
+
+    @GetMapping("/summary/{id}")
+    public ResponseEntity<ReservationSummary> getSummary(@PathVariable int id) {
+        return ResponseEntity.ok(this.reservationService.getSummary(id));
     }
 
 }

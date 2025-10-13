@@ -1,6 +1,7 @@
 package com.react.app.service;
 
 import com.react.app.persistence.entity.ReservationEntity;
+import com.react.app.persistence.projection.ReservationSummary;
 import com.react.app.persistence.repository.ReservationPagSortRepository;
 import com.react.app.persistence.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,6 +82,10 @@ public class ReservationService {
     /*Método para consumir SQL Nativo*/
     public List<ReservationEntity> getUserReservations(String idUser) {
         return this.reservationRepository.getUserReservations(idUser);
+    }
+
+    public ReservationSummary getSummary(int reservationId) {
+        return this.reservationRepository.findSummary(reservationId);
     }
 
 }
