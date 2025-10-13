@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -25,6 +24,14 @@ public class ReservationController {
     public ResponseEntity<Page<ReservationEntity>> getAll(@RequestParam(defaultValue = "0") int page,
                                                           @RequestParam(defaultValue = "8") int elements) {
         return ResponseEntity.ok(this.reservationService.getAll(page, elements));
+    }
+
+    @GetMapping("/dates/{date}")
+    public ResponseEntity<Page<ReservationEntity>> getByDate(@PathVariable LocalDate date,
+                                                             @RequestParam(defaultValue = "0") int page,
+                                                             @RequestParam(defaultValue = "8") int elements,
+                                                             @RequestParam(defaultValue = "date") String sortBy) {
+        return ResponseEntity.ok(this.reservationService.getByDate(date, page, elements, sortBy));
     }
 
     @GetMapping("/teacher/{teacher}")
@@ -46,6 +53,12 @@ public class ReservationController {
     @GetMapping("/today")
     public ResponseEntity<List<ReservationEntity>> getTodayReservations() {
         return ResponseEntity.ok(this.reservationService.getTodayReservations());
+    }
+
+    /*Controlador SQL Nativo*/
+    @GetMapping("/user/{id}")
+    public ResponseEntity<List<ReservationEntity>> getUserReservations(@PathVariable String id) {
+        return ResponseEntity.ok(this.reservationService.getUserReservations(id));
     }
 
 }

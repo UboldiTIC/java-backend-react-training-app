@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -39,6 +40,13 @@ public class ReservationService {
         return this.reservationPagSortRepository.findAll(pageRequest);
     }
 
+    /* De Paging and Sorting Repository Con Sort: */
+    public Page<ReservationEntity> getByDate(LocalDate date, int page, int elements, String sortBy) {
+        Pageable pageRequest = PageRequest.of(page, elements, Sort.by(sortBy));
+        LocalDateTime dateTime = date.atTime(0, 0);
+        return this.reservationPagSortRepository.findByDate(dateTime, pageRequest);
+    }
+
     public List<ReservationEntity> getByTeacher(String teacher) {
         return this.reservationRepository.findAllByTeacherIgnoreCase(teacher);
     }
@@ -68,6 +76,11 @@ public class ReservationService {
     public List<ReservationEntity> getTodayReservations() {
         LocalDateTime today = LocalDate.now().atTime(0, 0);
         return this.reservationRepository.findAllByDateAfter(today);
+    }
+
+    /*Método para consumir SQL Nativo*/
+    public List<ReservationEntity> getUserReservations(String idUser) {
+        return this.reservationRepository.getUserReservations(idUser);
     }
 
 }
