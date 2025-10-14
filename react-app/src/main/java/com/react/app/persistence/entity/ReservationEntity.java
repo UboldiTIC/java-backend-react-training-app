@@ -6,17 +6,18 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Entity
 @Table(name = "reservation")
+@EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
 @NoArgsConstructor
-public class ReservationEntity {
+public class ReservationEntity extends AuditableEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_reservation", nullable = false)
@@ -47,7 +48,7 @@ public class ReservationEntity {
     /* @ManyToOne(fetch = FetchType.LAZY) */
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_device", referencedColumnName = "id_device", nullable = false)
-    /*Ver recursión infinita - se quitó @JsonIgnore - ver DTO*/
+    /*Ver recursión infinita - se quitó @JsonIgnore - ver crear DTO*/
     @JsonIgnoreProperties({"reservations"})
     private DeviceEntity device;
 }
