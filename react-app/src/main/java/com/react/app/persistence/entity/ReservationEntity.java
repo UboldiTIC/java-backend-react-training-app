@@ -2,6 +2,8 @@ package com.react.app.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.react.app.persistence.audit.AuditReservationListener;
+import com.react.app.persistence.audit.AuditableEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,11 +15,11 @@ import java.time.LocalTime;
 
 @Entity
 @Table(name = "reservation")
-@EntityListeners(AuditingEntityListener.class)
+@EntityListeners({AuditingEntityListener.class, AuditReservationListener.class})
 @Getter
 @Setter
 @NoArgsConstructor
-public class ReservationEntity extends AuditableEntity{
+public class ReservationEntity extends AuditableEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_reservation", nullable = false)
@@ -51,4 +53,19 @@ public class ReservationEntity extends AuditableEntity{
     /*Ver recursión infinita - se quitó @JsonIgnore - ver crear DTO*/
     @JsonIgnoreProperties({"reservations"})
     private DeviceEntity device;
+
+    /*Auditoría personalizada en AuditReservationListener*/
+    @Override
+    public String toString() {
+        return "ReservationEntity{" +
+                "idReservation=" + idReservation +
+                ", date=" + date +
+                ", from=" + from +
+                ", to=" + to +
+                ", teacher='" + teacher + '\'' +
+                ", note='" + note + '\'' +
+                ", user=" + user +
+                ", device=" + device +
+                '}';
+    }
 }

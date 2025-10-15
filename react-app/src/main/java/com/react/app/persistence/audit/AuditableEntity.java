@@ -1,4 +1,4 @@
-package com.react.app.persistence.entity;
+package com.react.app.persistence.audit;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
