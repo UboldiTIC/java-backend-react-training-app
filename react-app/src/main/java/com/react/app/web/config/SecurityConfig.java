@@ -2,6 +2,7 @@ package com.react.app.web.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -16,6 +17,8 @@ public class SecurityConfig {
         //Métodos deprecados:
         http
                 .csrf().disable()
+                //Cors
+                //Request Matchers
                 .authorizeHttpRequests()
                 .anyRequest()
                 .authenticated()
@@ -23,13 +26,27 @@ public class SecurityConfig {
                 .httpBasic();
         */
         http
+                /*
                 .authorizeHttpRequests(customizeRequests -> {
                     customizeRequests
                             .anyRequest()
                             .authenticated();
                     }
                 )
+                .requestMatchers(HttpMethod.GET, "/api/*").permitAll()
                 .csrf(AbstractHttpConfigurer::disable)
+                .cors(Customizer.withDefaults())
+                .httpBasic(Customizer.withDefaults());
+                */
+
+                .csrf(AbstractHttpConfigurer::disable)
+                .cors(Customizer.withDefaults())
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT).denyAll()
+                        .anyRequest()
+                        .authenticated()
+                )
                 .httpBasic(Customizer.withDefaults());
 
         return http.build();
