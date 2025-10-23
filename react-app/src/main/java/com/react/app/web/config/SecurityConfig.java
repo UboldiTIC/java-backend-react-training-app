@@ -48,8 +48,13 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.GET, "/api/device/**").permitAll()
-                        .requestMatchers(HttpMethod.PUT).denyAll()
+                //        .requestMatchers(HttpMethod.GET, "/api/device/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/device/**").hasAnyRole("ADMIN", "TEACHER")
+                        .requestMatchers(HttpMethod.POST, "/api/device/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/device/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/device/**").hasRole("ADMIN")
+                        .requestMatchers("/api/reservations/**").hasAnyRole("ADMIN", "TEACHER")
+                //        .requestMatchers(HttpMethod.PUT).denyAll()
                         .anyRequest()
                         .authenticated()
                 )
@@ -66,7 +71,13 @@ public class SecurityConfig {
                 .roles("ADMIN")
                 .build();
 
-        return new InMemoryUserDetailsManager(admin);
+        UserDetails teacher = User.builder()
+                .username("teacher")
+                .password(passwordEncoder().encode("teacher"))
+                .roles("TEACHER")
+                .build();
+
+        return new InMemoryUserDetailsManager(admin, teacher);
     }
 
     @Bean
