@@ -20,6 +20,9 @@ public class UserEntity extends AuditableEntity {
     @Column(name = "id_user", nullable = false)
     private Integer idUser;
 
+    @Column(nullable = false, length = 20, unique = true)
+    private String username;
+
     @Column(nullable = false, length = 30)
     private String name;
 
@@ -30,13 +33,19 @@ public class UserEntity extends AuditableEntity {
     @Column(nullable = false, length = 15, unique = true)
     private String dni;
 
-    @Column(length = 30)
+    @Column(length = 15)
     private String role;
 
-    @Column(nullable = false, unique = true, length = 100)
+    @Column(nullable = false, unique = true, length = 50)
     private String email;
 
     @Column(nullable = false, length = 255)
     private String password;
+
+    @Column(nullable = false, columnDefinition = "TINYINT")
+    private Boolean locked;
+
+    @Column(nullable = false, columnDefinition = "TINYINT")
+    private Boolean disabled;
 
 }

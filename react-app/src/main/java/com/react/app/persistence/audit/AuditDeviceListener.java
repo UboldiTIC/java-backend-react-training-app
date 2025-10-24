@@ -21,7 +21,7 @@ public class AuditDeviceListener {
     @PostUpdate
     public void onPostPersist(DeviceEntity entity) {
         System.out.println("POST PERSIST OR UPDATE");
-        System.out.println("OLD VALUE: " + this.currentValue.toString());
+        //System.out.println("OLD VALUE: " + this.currentValue.toString());
         System.out.println("NEW VALUE: " + entity.toString());
     }
 
