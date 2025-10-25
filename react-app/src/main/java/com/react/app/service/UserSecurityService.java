@@ -1,6 +1,7 @@
 package com.react.app.service;
 
 import com.react.app.persistence.entity.UserEntity;
+import com.react.app.persistence.entity.UserRoleEntity;
 import com.react.app.persistence.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
@@ -22,10 +23,14 @@ public class UserSecurityService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity userEntity = this.userRepository.findById(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User " + username + " not found."));
+
+        // Convierto la lista de roles en un Array de Strings luego de extraer el role:
+        String[] roles = userEntity.getRoles().stream().map(UserRoleEntity::getRole).toArray(String[]::new);
+
         return User.builder()
                 .username(userEntity.getUsername())
                 .password(userEntity.getPassword())
-                .roles("ADMIN")
+                .roles(roles)
                 .accountLocked(userEntity.getLocked())
                 .disabled(userEntity.getDisabled())
                 .build();

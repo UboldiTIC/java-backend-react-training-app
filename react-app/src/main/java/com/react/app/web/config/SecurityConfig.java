@@ -49,11 +49,11 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
                 //        .requestMatchers(HttpMethod.GET, "/api/device/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/device/**").hasAnyRole("ADMIN", "TEACHER")
+                        .requestMatchers(HttpMethod.GET, "/api/device/**").hasAnyRole("ADMIN", "USER")
                         .requestMatchers(HttpMethod.POST, "/api/device/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/device/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/device/**").hasRole("ADMIN")
-                        .requestMatchers("/api/reservations/**").hasAnyRole("ADMIN", "TEACHER")
+                        .requestMatchers("/api/reservations/**").hasAnyRole("ADMIN", "USER")
                 //        .requestMatchers(HttpMethod.PUT).denyAll()
                         .anyRequest()
                         .authenticated()
