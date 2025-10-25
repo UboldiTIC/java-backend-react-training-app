@@ -20,6 +20,7 @@ public class UserController {
         this.userService = userService;
     }
 
+    /*
     @PutMapping("/password")
     public ResponseEntity<Void> updatePassword(@RequestBody UpdateUserPasswordDto dto) {
         if (this.userService.exists(dto.getIdUser())) {
@@ -28,4 +29,6 @@ public class UserController {
         }
         return ResponseEntity.badRequest().build();
     }
+    */
+
 }

@@ -43,7 +43,7 @@ public class ReservationEntity extends AuditableEntity {
     /* Ver si es necesario agregarlos como clave primaria compuesta antes de crear las relaciones. */
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_user", referencedColumnName = "id_user")
+    @JoinColumn(name = "username", referencedColumnName = "username")
     @JsonIgnore
     private UserEntity user;
 

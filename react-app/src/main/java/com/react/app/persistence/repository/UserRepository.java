@@ -9,11 +9,12 @@ import org.springframework.data.repository.query.Param;
 
 public interface UserRepository extends ListCrudRepository<UserEntity, Integer> {
 
+    /*
     @Modifying
     @Query(value =
             "UPDATE user " +
             "SET password = :#{#newUserPassword.newPassword} " +
             "WHERE id_user = :#{#newUserPassword.idUser}", nativeQuery = true)
     void updatePassword(@Param("newUserPassword")UpdateUserPasswordDto newUserPassword);
-
+    */
 }

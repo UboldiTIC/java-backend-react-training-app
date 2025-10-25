@@ -14,11 +14,13 @@ public class UserService {
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-
+    /*
     @Transactional
     public void updatePassword(UpdateUserPasswordDto dto) {
         this.userRepository.updatePassword(dto);
     }
+
+     */
 
     public boolean exists(int idUser) {
         return this.userRepository.existsById(idUser);
