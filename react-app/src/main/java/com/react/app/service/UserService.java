@@ -22,7 +22,7 @@ public class UserService {
 
      */
 
-    public boolean exists(int idUser) {
+    public boolean exists(String idUser) {
         return this.userRepository.existsById(idUser);
     }
 }

@@ -63,6 +63,8 @@ public class SecurityConfig {
         return http.build();
     }
 
+    /*
+    // Crear usuarios en memoria para probar.
     @Bean
     public UserDetailsService memoryUsers() {
         UserDetails admin = User.builder()
@@ -79,6 +81,7 @@ public class SecurityConfig {
 
         return new InMemoryUserDetailsManager(admin, teacher);
     }
+    */
 
     @Bean
     public PasswordEncoder passwordEncoder() {
